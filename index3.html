@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <style>
+        *{
+          box-sizing: border-box;  
+        }
+        body{
+            background-color: #f8f9fd;
+            font-family: serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0px;
+        }
+        
+        .frame{
+            width: 300px;
+            border-radius: 5px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden; 
+        }
+        .heading {
+            background-color: #3e57db;
+            color: #fff;
+            padding: 30px 20px;
+        }
+        .head{
+            margin: 0;
+        }
+        .para {
+            margin: 5px 0px 20px;
+            display: inline-block;
+
+        }
+        input{
+            border-radius: 20px;
+            width:250px;
+            padding: 10px 15px;
+            margin-left: 9px;
+            margin-right: 10px;
+            margin-bottom: 40px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+
+        }
+        .user-list {  
+  background-color: #fff;  
+  list-style-type: none;  
+  margin: 0;  
+  padding: 0;  
+  max-height: 400px;  
+  overflow-y: auto;  
+ }  
+ .user-list li {  
+  display: flex;  
+  padding: 20px;  
+ }  
+ .user-list img {  
+  border-radius: 50%;  
+  object-fit: cover;  
+  height: 50px;  
+  width: 50px;  
+ } 
+ .user-list .user-info {  
+  margin-left: 10px;  
+ } 
+ .user-list .user-info h4 {  
+  margin: 0 0 10px;  
+ }  
+ .user-list .user-info p {  
+  font-size: 12px;  
+ }  
+ .user-list li:not(:last-of-type) {  
+  border-bottom: 1px solid #eee;  
+ }  
+ .user-list li.hide {  
+  display: none;  
+ }        
+    </style>
+    <body>
+        <div class="frame">
+            <header class="heading">
+                <h3 class="head">User Search</h3>
+                <small class="para">search by name and/or by location</small>
+                <input type="text" id="filter" placeholder="Search" onkeyup="myFunction()">
+            </header>
+            <ul class="user-list"  id="result">
+                <li>
+                    <h3>Loading....</h3>
+                 </li>
+             </ul>
+         </div>
+         <script>
+           const result = document.getElementById('result')  
+   
+  const listItems = []  
+  getData()    
+  async function getData() {  
+    const res = await fetch('https://randomuser.me/api?results=50')  
+    const { results } = await res.json()  
+    // Clear result  
+    result.innerHTML = ''  
+    results.forEach(user => {  
+      const li = document.createElement('li')  
+      listItems.push(li)  
+      li.innerHTML = `  
+        <img src="${user.picture.large}" alt="${user.name.first}">  
+        <div class="user-info">  
+          <h4>${user.name.first} ${user.name.last}</h4>  
+          <p>${user.location.city}, ${user.location.country}</p>  
+        </div>  
+      `  
+      result.appendChild(li)  
+    })  
+  }  
+
+  function myFunction() {
+    for (i = 0; i < li.length; i++) {
+        li = li[i].getElementsByTagName("li")[0];
+        txtValue = li.textContent || li.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+} 
+         </script> 
+    </body>
+</html>
